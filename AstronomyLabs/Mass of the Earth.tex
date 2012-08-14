@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+
+%AMS-TeX packages
+\usepackage{amssymb,amsmath,amsthm} 
+%geometry (sets margin) and other useful packages
+\usepackage[margin=1.25in]{geometry}
+\usepackage{graphicx,ctable,booktabs}
+
+
+%
+%Redefining sections as problems
+%
+
+\makeatletter
+\newenvironment{problem}{\@startsection
+       {subsection}
+       {1}
+       {-.2em}
+       {-3.5ex plus -1ex minus -.2ex}
+       {2.3ex plus .2ex}
+       {\pagebreak[3]%forces pagebreak when space is small; use \eject for better results
+       \normalsize\bf\noindent{Problem }
+       }
+       }
+       {%\vspace{1ex}\begin{center} \rule{0.3\linewidth}{.3pt}\end{center}}
+       %\begin{center}\large\bf \ldots\ldots\ldots\end{center}
+       }
+\makeatother
+
+
+%
+%Fancy-header package to modify header/page numbering 
+%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+%\addtolength{\headwidth}{\marginparsep} %these change header-rule width
+%\addtolength{\headwidth}{\marginparwidth}
+\lhead{Price-Whelan}
+\chead{} 
+\rhead{\thepage} 
+\lfoot{\small\scshape course name} 
+\cfoot{} 
+\rfoot{\footnotesize Lab \#} 
+\renewcommand{\headrulewidth}{.3pt} 
+\renewcommand{\footrulewidth}{.3pt}
+\setlength\voffset{-0.25in}
+\setlength\textheight{648pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%Contents of problem set
+%    
+\begin{document}
+
+\title{Orders of Magnitude and the Mass of the Earth \\ \large \textbf{Lab 1}}
+\author{Adrian Price-Whelan}
+\date{\small Revision: \today}
+
+\maketitle
+
+\thispagestyle{empty}
+
+%Example problems
+\section{\large Powers of 10}
+\indent\indent In everyday life we don't often encounter trillions, billions, or even millions of things (if you \textit{are} used to thinking about billions of dollars, do let me know...). We may use these terms when discussing the national debt, or populations of people, but in most cases it is difficult to conceptualize such a large value. It's not by chance that typical units of length, mass, or time are expressed in small numbers -- our ancestors \textit{defined} them that way for the sake of convenience (e.g., the foot). However, units that are convenient for \textit{us} end up being quite annoying for even some of the the smallest scales in the Universe! 
+
+% As an aside, it used to be the case that we called big numbers 'astronomical,' because astronomers and mathematicians were the only people thinking about such large numbers! Of course, today that's not true because the national debt is big enough that if we had that much cash, we could put a $100 bill on EVERY STAR IN THE GALAXY, and *still* have enough money to buy several small countries.
+
+\begin{problem}{ }
+	\textit{Express your answers however you like, in any units, but you must estimate -- do not look at your phone or computer!}  \\ \\
+	\textbf{How far away is the person directly across from you?} \hrulefill \\ \\
+	\textbf{In the same units as above, how far away is the Sun?} \hrulefill \\ \\
+	\textbf{How fast do cars move on the highway?} \hrulefill \\ \\
+	\textbf{In the same units as above, how fast is the Earth moving?} \hrulefill 
+\end{problem}
+
+% This exercise is meant to do a few things: 1) they should start thinking about estimation, 2) they should start thinking about distance and velocities in space, 3) they should see how annoying it is to write so many zeros after the distance to the Sun. This will open the door for the next part on scientific notation.
+
+\clearpage
+
+The Sun is very far away -- much, much farther than any of your classmates (\textit{you better hope}!). It is so far away that you may have had trouble fitting all of the zeros in the distance answer space provided on the previous page! When we start to do calculations involving large values in general, we don't want to have to write all those zeros over and over again, right? One way we have overcome this problem is to use a set of \textit{prefixes} with common meanings to rescale our system of units. For example, if we're talking about the length of Manhattan, it might be annoying to express this value in plain old meters -- we'd have to say ``twenty-one thousand, five-hundred and sixty-five meters.'' To get around this (for the sake of laziness) we use the prefix \textit{kilo-} to mean ``one-thousand'' somethings, meaning we can express the length of Manhattan as (roughly) ``twenty-one kilometers.''
+
+You may be familiar with many of these SI prefixes already, such as micro-, milli-, centi-, kilo-, mega-, giga-, etc. Again, we use them to rescale our units to make them more convenient to say or think about -- as a general rule when talking about big numbers, we try to keep the number we're talking about to be $<1000$ by using these prefixes. For example, we would say 500 meters, but if we wanted to say 50,000 meters, it might be better to say 50 kilometers
+
+\textbf{Scientific notation} is another useful way for dealing with very large or very small numbers, and allows us to express them in a numeric short-hand. To start, remember that raising a number to some \textit{power} or \textit{exponent} means multiplying that number by itself some number of times (where the number is given by the value in the exponent): 
+\begin{equation*}
+	15^3 = 15\times15\times15 = 3375
+\end{equation*}
+Because we use a Base-10 number system, doing this exponentiation with the number 10 is very easy! If we have $10^3$, it just means writing the number 1 with 3 zeros after it because:
+\begin{equation*}
+	10^3 = 10\times10\times10 = 1000
+\end{equation*}
+
+But what do we do for very small numbers? Instead of raising to a \textit{positive} number, like 3, we exponentiate using a \textit{negative} number, where the minus-sign tells us to put the zeros on the opposite side of the decimal point. For example:
+
+\begin{equation*}
+	10^{-3} = .001
+\end{equation*}
+
+But wait a minute, why are there only two zeros after the decimal here? Let's think about the number 10. Writing a number by itself is equivalent to writing that same number \textit{raised to the 1st power}, e.g. $10 = 10^1$, but ??	
+
+That's because you can think of each power to the -1 as literally moving the decimal over by one digit, and with the number 10 we have an extra zero before the decimal. To visualize this:
+\begin{equation*}
+	10\times10^{-1} = 10\times0.1 = 1
+\end{equation*}
+
+Note that 1000 is the same as $1 \times 1000$. Notice also that if we want, we can express that first number as $ 3.375 \times 1000$
+
+also that 3375 has the same number of digits before the decimal as 1000. 
+
+\end{document}
