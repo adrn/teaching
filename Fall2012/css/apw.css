@@ -1,0 +1,53 @@
+.jumbotron {
+    position: relative;
+    padding: 40px 0;
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    text-shadow: 0 0 40px rgba(160,215,255,1),
+                 0 0 20px rgba(160,215,255,1);
+}
+
+.jumbotron h1 {
+    font-size: 33pt;
+}
+
+.jumbotron .container {
+    background-image: url("../images/solar_system.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    -webkit-box-shadow: 0px 5px 7px rgba(0,0,0,.4);
+     -moz-box-shadow: 0px 5px 7px rgba(0,0,0,.4);
+          box-shadow: 0px 5px 7px rgba(0,0,0,.4);
+    border-radius: 10px;
+}
+
+.quote {
+    font-style: italic;
+    font-size: 14pt;
+}
+
+.quote .author {
+    font-style: normal;
+    font-weight: bold;
+    text-align: right;
+}
+
+section h2 {
+    color: #666;
+}
+
+p {
+    font-size: 13pt;
+}
+
+span.key {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+span.value {
+    padding-left: 15px;
+    font-size: 18pt;
+}
