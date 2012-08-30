@@ -1,125 +1,78 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 
 
-%---------- Uncomment one of them ------------------------------
-%\usepackage[includeheadfoot, top=1in, bottom=1in, hmargin=1in]{geometry}
+\usepackage{amssymb,amsmath,amsthm} 
 
-% \usepackage[a5paper, landscape, twocolumn, twoside,
-%    left=2cm, hmarginratio=2:1, includemp, marginparwidth=43pt,
-%    bottom=1cm, foot=.7cm, includefoot, textheight=11cm, heightrounded,
-%    columnsep=1cm, dvips,  verbose]{geometry}
-%---------------------------------------------------------------
-%\usepackage{fancyhdr}
-\usepackage{verbatim}
+%geometry (sets margin) and other useful packages
+\usepackage[margin=1.25in]{geometry}
+\usepackage{graphicx,ctable,booktabs}
+\usepackage{booktabs}
+\usepackage{cancel}
 \usepackage{url}
-\usepackage{epsfig}
-%\pagestyle{fancy}
-\usepackage{setspace}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage[includeheadfoot, top=1in, bottom=1in, hmargin=1in]{geometry}
 
-%\usepackage{amsmath, amsfonts, amssymb,epsfig,graphicx}
-
+%Fancy-header package to modify header/page numbering 
 \usepackage{fancyhdr}
-\usepackage{url}
 \pagestyle{fancy}
+\lhead{Price-Whelan}
+\chead{} 
+\rhead{\thepage} 
+\lfoot{\small\scshape Astronomy Lab -- Fall 2012} 
+\cfoot{} 
+\rfoot{\footnotesize } 
+\renewcommand{\headrulewidth}{.3pt} 
+\renewcommand{\footrulewidth}{.3pt}
+\setlength\voffset{-0.25in}
+\setlength\textheight{648pt}
 
-%\doublespacing
-\singlespacing
-%\onehalfspacing
-
-\lhead{Astronomy Lab}
-\chead{Tuesday, 6-9pm}
-\rhead{Fall 2012}
-\lfoot{Adrian Price-Whelan}
-\cfoot{\thepage}
-\rfoot{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
+\title{\Huge Astronomy Lab -- Fall 2012}
+\author{}
+\date{}%\small Revision: \today}
 
-\begin{center}
-{\Huge Astronomy Lab: Earth, Moon, and Planets}
-\end{center}
+\maketitle
 
+\thispagestyle{empty}
 
+\vspace{-0.5in}
+\large
+\noindent\textbf{Instructor:} \hspace{0.1in} Adrian Price-Whelan  -- adrn@astro.columbia.edu\\
+\textbf{Office:} \hspace{0.1in} Pupin 1420\\
+\textbf{Class Time:} \hspace{0.1in} Wednesday 6-9PM\\
+\textbf{Class Location:} \hspace{0.1in} Pupin Hall 1332\\
+\textbf{Office Hours:} \hspace{0.1in} By appointment.\\
 
-\begin{flushleft}
+\noindent\textbf{Course Website:} \url{http://deimos.astro.columbia.edu/fall2012}\newline
 
-\section*{General Info}
-\bf Instructor: Adrian Price-Whelan \\
-Class Time: Tuesday 6-9 PM \\
-Class Location: Classroom 1332\\
-Office Hours: By appointment\\
-Contact Information: ximena@astro.columbia.edu - Pupin 1410\\
-TAs: We will occasionally have an TA assigned to our lab \\
+\noindent\emph{You can know the name of a bird in all the languages of the world, but when you're finished, you'll know absolutely nothing whatever about the bird... So let's look at the bird and see what it's doing -- that's what counts.} -- Richard Feynman
 
-% The first 10-15 minutes of each lab class will be an introduction to the topic by me and a group of students. The students will be responsible for making a short (5 minute) presentation on their take on the subject?
+\normalsize
 
-%\vspace{0.15in}
-\section*{Overview}
-Welcome to lab! We will cover a variety of topics dealing with stars, galaxies and cosmology.   Some of the activities will complement what you are learning in class, and we will try to use the telescopes as often as possible.  At the end of the semester, I really hope you have come to appreciate astronomy, and in general, the beauty of science.\\
-\vspace{0.08in}
-
-
-\section*{Grading}
+\section*{Goals}
+Science is not just a collection of facts and statements -- it is a process of exploration, observation, and critical thinking. In this vein, the goal of this class will be to cultivate your critical thinking and reasoning skills with less of a focus on raw knowledge and facts. I'd much rather you learn to estimate the mass of the Earth with pencil and paper than to memorize the names of the moons of Jupiter (though that is good to know for impressing your friends!). More concretely, we will:
 \begin{itemize}
-\item Lab Notebooks: 64\% \\
-\item Presentations: 16\% \\
-\item Participation: 20\% \\
+	\item Build an intuition for orders of magnitude and dealing with very large and very small numbers,
+	\item Understand the difference between error and uncertainty, accuracy and precision,
+	\item Understand unit conversions and why we have different systems of measurement,
+	\item Gain a basic knowledge of statistics
 \end{itemize}
-\vspace{0.1in}
 
-We will have 9 labs during the course of the semester, each will count 8\% of your final grade.  I will drop the lowest lab, meaning that lab notebooks will make up 64\% of your grade.\\
-\vspace{0.1in}
-We will have presentations in April. I will give you one full lab period to work on this, so the presentations will count as two labs (16\%).\\ 
+\section*{Attendance}
+You must attend lab to get credit and there are no make-up labs. Missing a lab means losing all credit for that week. Three missed labs results in a failing grade.
 
-\vspace{0.1in}
-Participation is an essential part of the class. I expect you to be be on time and prepared to engage fully in lab. In each lab, you can get 3 points counting towards your participation grade:  1 for being on time and prepared, 1 for being engaged in lab, and 1 for asking questions and participating in discussions.  \\
+Being on time for labs is important because we will often start with an introduction. Missing the introduction to a lab will be counted as ``late'' and you will lose 20\% of your grade for that class.
 
-\vspace{0.1in}
-
-\section*{Attendance Policy}
-You can miss one lab during the semester since your lowest lab grade will be dropped.  Due to University policy, you will fail the class if you miss more than two labs.
-
-
-\vspace{0.1in}
-
-
-
+Exceptions may be made for extraordinary circumstances or religious holidays. If you know you will need to miss a lab, you must let me know in advance. The earlier you let me know, the more flexible I can be about how and when you can make up the credit. If you miss a lab due to illness or emergency, please get in touch with me by email before the next lab session.
 
 \section*{Materials}
-\begin{itemize}
-\item Lab notebook
-\item Scientific calculator
-\item Warm clothes:  We will occasionally go up to the roof to use the telescope, please dress warmly during the colder months.
-\end{itemize}
+Please obtain a \textbf{permanently bound} (not spiral or loose-leaf) lab notebook by our second meeting. Bring a calculator, writing implements, and your lab notebook to every meeting. You should be prepared to go outside every week, even if the weather looks bad. In the later months you will want gloves, a hat, a warm coat, etc. 
 
-\section*{Lab Notebook Guidelines}
-All of your work should be neatly written on your notebook.  I will collect lab notebooks at the end of each lab to grade that day's activity.
-Here are a few guidelines to keep in mind.  You will be graded on how well you follow these instructions.
-\begin{itemize}
-\item Always write the name of your lab partner(s), date and title at the top of each lab.
-\item Always make sure you use units! 
-\item Use scientific notation when appropriate. 
-\item Please be organized and try to write neatly, if I can't read it, I can't grade it.
-\item I recommend using pencil instead of pen, that way you can erase any mistakes you make along the way.
-\item You will be making plots throughout the semester, please use plenty of space and make sure to label the axes.
-\item Show all of your steps when calculating a number so I can follow your work and give you partial credit in case you make a mistake.  Make sure to box the final answer. 
-\item Answer the concluding questions section individually unless I indicate otherwise.
-\end{itemize}
+\section*{Lab Notebooks}
+Your lab notebooks will be a personal record of the work you do in the class, any thoughts you might have, and any things you may find interesting. Every week at the start of lab you will be required to write 1-2 paragraphs about what you learned and remember about the previous lab session. While most lab handouts will have designated spots for you to fill in answers, you will be required to show all of your work in your lab notebooks. All calculations should have units! Feel free to add in interesting articles, plots, or things you may have learned elsewhere. I will collect your notebooks every other week and use the content when grading your labs (more on this in the next section). \textbf{Start each new lab session with a new page in your notebook with the date and lab name at the top.}
 
-\section*{Miscellany}
-\begin{itemize}
+\section*{Grading}
+Your grade will be determined by a combination of your lab worksheets (10\%), lab notebooks (60\%), and participation (30\%). 
 
-\vspace{0.1in}
-\item Lab Partners:  Science is a collaborative endeavor so you will work in groups throughout the semester but every person should write their own answers.  Please answer the discussion section individually. 
-\item Astronomy in the media: If you come across interesting astronomy-related news, feel free to bring it up in class! Be prepared to talk for 5 minutes about it. This will count for extra-credit in your participation grade. 
-\item Lab Snack:  Two people will be in charged of bringing a simple snack to lab every week.
-\item Please contact me if you have any questions, comments or if you are having difficulty with the material. 
-\end{itemize}
-
-
-\end{flushleft}
 \end{document}
