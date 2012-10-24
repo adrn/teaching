@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{amssymb,amsmath,amsthm} 
+
+%geometry (sets margin) and other useful packages
+\usepackage[margin=1.25in]{geometry}
+\usepackage{graphicx,ctable,booktabs}
+\usepackage{booktabs}
+\usepackage{cancel}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{verbatim}
+
+% Define my smaller twiddle
+\newcommand{\apwsim}{\raisebox{0.2ex}{\scriptsize$\sim$\normalsize}} 
+
+%Redefining subsections as problems
+\makeatletter
+\newenvironment{problem}{\@startsection
+       {subsection}
+       {1}
+       {-.2em}
+       {-3.5ex plus -1ex minus -.2ex}
+       {2.3ex plus .2ex}
+       {\pagebreak[3]%forces pagebreak when space is small; use \eject for better results
+       \normalsize\bf\noindent{Problem }
+       }
+       }
+       {%\vspace{1ex}\begin{center} \rule{0.3\linewidth}{.3pt}\end{center}}
+       %\begin{center}\large\bf \ldots\ldots\ldots\end{center}
+       }
+\makeatother
+
+% Change font size of sections
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                  {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                  {2.3ex \@plus.2ex}%
+                                  {\normalfont\large\bfseries}}
+\makeatother
+
+%Fancy-header package to modify header/page numbering 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\newcommand{\degrees}{\ensuremath{^\circ}}
+\newcommand{\arcmin}{\ensuremath{'}}
+\newcommand{\arcsec}{\ensuremath{"}}
+\newcommand{\hours}{\ensuremath{^\mathrm{h}}}
+\newcommand{\minutes}{\ensuremath{^\mathrm{m}}}
+\newcommand{\seconds}{\ensuremath{^\mathrm{s}}}
+
+\newcommand{\s}[0]{\phantom{i}} %sets up \s command
+\newcommand{\m}[0]{\phantom{abcde}} %sets up \m command
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}} %sets up \e command
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{What is a planet?}
+\author{Adrian Price-Whelan}
+\date{}%\small Revision: \today}
+
+\maketitle
+
+\thispagestyle{empty}
+
+%Example problems
+The International Astronomical Union (IAU) has tasked you with the job of creating a scientific definition for the word ``planet.'' You may recall that their own classification system recently changed, which resulted in Pluto losing its status as a planet. They have provided you with a list of measurements of objects -- some from within our solar system, some from other solar systems -- and ask you to decide upon a classification scheme of your choosing for these objects. You'll have to consider how you want to group them by looking at the provided properties. \textbf{You are not trying to reproduce the current classification system, so feel free to be creative.} 
+
+Attached to this paper is a chart with data -- let's take a minute to go over the meaning of each column. 
+
+\begin{itemize}
+	\item Mass, density, and diameter should be straightforward.
+	\item  The oblateness of an object is a measure of how squashed it is -- imagine sitting on a basketball. A small value of oblateness means the object is close to spherical, whereas larger values mean the object is more squashed.
+	\item The semi-major axis is the longer of the two axes defined for an ellipse. 
+	\item The eccentricity of an elliptical orbit is defined as $e = \sqrt{1 - (b/a)^2}$ where $a$ is the semi-major axis, and $b$ is the semi-minor axis.
+	\item (ignore $\mu$)
+	\item Number of moons should be straightforward.
+	\item Composition indicates in which form most of the mass of the object is found. 
+	\item Atmosphere designates the different elements found in the atmosphere of the object. ``Trace'' = little or no atmosphere.
+\end{itemize}
+
+\clearpage
+
+\section{Classifying Objects}
+\begin{problem}{ }
+\indent\indent Find the average distance from the Sun (i.e. semi-major axis) 
+of \textit{rock} objects, the average distance from the Sun of \textit{gas} objects, 
+and the average distance from the Sun of \textit{rock and ice} objects.  
+Are there any bodies who do not seem to fit in with the others in their 
+composition class?  Which ones?  If so, recalculate the average distance
+for that composition class again without this/these member(s).  Does the composition 
+of an object correlate with its distance from a star? 
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Identify the bodies that have the most
+eccentric orbits --- you can set your own ``cutoff'' value. Look at the other
+properties of the eccentric bodies. Is there anything they have in common?
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Make a scatter plot of object mass versus distance from the Sun (Orbital
+Radius). The x-axis will be log$_{10}a$ in units of AU, where $a$ is the semi-major axis, and the 
+y-axis will be log$_{10}(Mass)$ in units of Earth masses ($M_E$). Do 
+massive bodies tend to be farther or closer to their host star? What about low-mass bodies?  
+What exceptions are there to this?
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Make a scatter plot of object density versus orbital radius. 
+The x-axis will again be log$_{10}a$ and the y-axis will be density. Does there seem
+to be any relationship between density and distance from the host star? 
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Make a scatter plot of number of moons versus mass of the object.  Let
+your x-axis be log$_{10}(Mass)$ in units of Earth masses ($M_E$) and
+your y-axis will be the number of moons.  How do these two quantities
+tend to relate to each other?  What does this seem to suggest to you?
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent  Examine the oblateness values for the various bodies. Do you notice any patterns? Does oblateness correlate with any other characteristic?
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Based on what have you have done (or any of the numbers on your datasheet), 
+come up with your own classification
+scheme for these objects.  Do you find obvious groupings in your plots, or
+is there no kind of correlation at all?  You can have as many groupings as 
+you want and as many objects in each group as you want.  Are there bodies 
+that don't seem to fit into any of your classification groups? 
+Take your time. There is no wrong answer to this!
+Write down which bodies are put into each grouping, and explain your 
+classification system in a few sentences.
+\end{problem}
+
+\begin{problem}{ }
+\indent\indent Now that you've come up with a classification system with different groups,  
+which of these groups do you think should be deemed \emph{planets}.  Should 
+they all?  Should none of them?  What are your criteria for what is considered
+to be a planet?  Write this down in a few sentences, and list the objects
+that you would consider to be a planet.  Again, there is no wrong answer to 
+this, just give it your best shot.
+\end{problem}
+
+\end{document}
