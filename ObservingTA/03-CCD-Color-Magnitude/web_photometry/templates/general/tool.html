@@ -1,0 +1,250 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block body_title %}
+    {{ super() }}
+    
+    {% endblock %}
+{% block body %}
+    <script src="{{ url_for('static', filename='js/thumbnailer.js') }}"></script>
+    
+    <h2>Photometry Tool</h2>
+    <hr width="400px" color="#aaa" size="1px" />
+    <br/>
+    
+    <div id="imageWrapper">
+        <div style="position: relative;">
+            <canvas id="imageContainer" 
+                style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+            <canvas id="imageOverlay" 
+                style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+        </div>
+        <div id="controlPanel" style="position: relative;">
+            <canvas id="zoom-view" width=150 height=150></canvas>
+            
+            <hr />
+            
+            <!-- Crosshairs and 1D pixel plot -->
+            <input type="checkbox" id="crosshairs" class="control" /> Show crosshairs
+            <svg id="rowPlot" class="flux-plot"></svg>
+            <svg id="colPlot" class="flux-plot"></svg>
+            
+            <hr />
+            
+            <!-- Aperture controls -->
+            <input type="checkbox" id="aperture" class="control" /> Show aperture
+            // <input type="text" size=3 id="apertureSize" value=8 /> pixels
+            
+            <!-- Flux measurement in aperture -->
+            <div id="aperture-flux-controls">
+                <span id="aperture-flux-label">Flux:</span>
+                <span id="aperture-flux-value"></span>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">        
+        $(document).ready(function () {
+            $("#controlPanel").width($("body").width() - 1015);
+        });
+        
+        var svg_width = 60;
+        
+        var canvas_width = 900,
+            canvas_height;
+        var image_context = document.getElementById("imageContainer").getContext("2d"),
+            overlay_context = document.getElementById("imageOverlay").getContext("2d"),
+            zoom_context = document.getElementById("zoom-view").getContext("2d")
+        
+        zoom_context.scale(5,5);
+        
+        var imageObj = new Image();
+        
+        // Load and scale image data
+        imageObj.onload = function() {
+            var aspect_ratio =  canvas_width / imageObj.width;
+            canvas_height = Math.round(aspect_ratio*imageObj.height);
+            
+            // Make overlay and image container canvas the same size
+            $("#imageContainer").attr("width",canvas_width);
+            $("#imageContainer").attr("height",canvas_height);
+            $("#imageOverlay").attr("width",canvas_width);
+            $("#imageOverlay").attr("height",canvas_height);
+            
+            // Draw the image
+            image_context.drawImage(imageObj, 0, 0, canvas_width, canvas_height);
+            
+            // The underlying div is relative-positioned, so I need to do this so
+            //      the page height scales accordingly.
+            $("#imageWrapper").height(canvas_height);
+            $("#controlPanel").height(canvas_height-20);
+            
+            // Set up the SVG plot scalers
+            set_scalers();
+        };
+        imageObj.src = "{{ image_url }}";
+        
+        /* 
+            Draw crosshairs on canvas 
+            -----------------------------------------------------------------*/
+        
+        var rowPlot_x_scaler,
+            colPlot_x_scaler,
+            rowPlot_y_scaler,
+            colPlot_y_scaler;
+        
+        function set_scalers() {
+            rowPlot_x_scaler = d3.scale.linear().domain([0, svg_width]).range([0, $("#rowPlot").width()]);
+            colPlot_x_scaler = d3.scale.linear().domain([0, svg_width]).range([0, $("#rowPlot").width()]);
+            rowPlot_y_scaler = d3.scale.linear().range([$("#rowPlot").height(),0]);
+            colPlot_y_scaler = d3.scale.linear().range([$("#rowPlot").height(),0]);
+        }
+        
+        function compute_flux(x, y, r) {
+            var _data = image_context.getImageData(x-r, y-r, 2*r, 2*r).data;
+            
+            var data = new Array();
+            for (var i=0; i<_data.length; i++) {
+                data.push(_data[i*4]);
+            }
+            
+            var sum = 0.0;
+            for (var i=0; i<2*r; i++) {
+                for (var j=0; j<2*r; j++) {
+                     sum += data[j + i*2*r];
+                }
+            }
+            return sum;
+        }
+        
+        var row_svg = d3.select("svg#rowPlot"),
+            col_svg = d3.select("svg#colPlot");
+        
+        row_svg.append("text")
+            .attr("x", 5)
+            .attr("y", 17)
+            .text("Row")
+        
+        col_svg.append("text")
+            .attr("x", 5)
+            .attr("y", 17)
+            .text("Col")
+        
+        $(".control").click(function (e) {
+            overlay_context.clearRect(0,0,
+                                      $("#imageOverlay").attr("width"),
+                                      $("#imageOverlay").attr("height"));
+        });
+
+        $("#imageOverlay").mousemove(function (e) {            
+            // Zoomed image view
+            var zoom_data = image_context.getImageData(e.offsetX-15, e.offsetY-15, 2*15, 2*15);
+            zoom_context.clearRect(0,0,
+                                   $("#zoom-view").width(),
+                                   $("#zoom-view").height());
+            
+            var newCanvas = $("<canvas>")
+                            .attr("width", zoom_data.width)
+                            .attr("height", zoom_data.height)[0];
+            newCanvas.getContext("2d").putImageData(zoom_data, 0, 0);
+            zoom_context.drawImage(newCanvas, 0, 0);
+            
+            if ($(".control:checked").length > 0) {
+                overlay_context.clearRect(0,0,
+                                          $("#imageOverlay").attr("width"),
+                                          $("#imageOverlay").attr("height"));
+            }
+            
+            if ($('#crosshairs').attr("checked")) {
+                overlay_context.beginPath();
+                overlay_context.moveTo(e.offsetX,0);
+                overlay_context.lineTo(e.offsetX,$("#imageOverlay").attr("height"));
+                overlay_context.stroke();
+                overlay_context.moveTo(0,e.offsetY);
+                overlay_context.lineTo($("#imageOverlay").attr("width"),e.offsetY);
+                overlay_context.strokeStyle = "#EF8A62";
+                overlay_context.stroke();
+            }
+            
+            if ($('#aperture').attr("checked")) {
+                var aperture_radius = parseInt($("#apertureSize").val());
+                
+                overlay_context.beginPath();
+                overlay_context.arc(e.offsetX, e.offsetY, aperture_radius, 0, Math.PI*2);
+                overlay_context.strokeStyle = "#CA0020";
+                overlay_context.stroke();
+                
+                var flux = compute_flux(e.offsetX, e.offsetY, aperture_radius);
+                $("#aperture-flux-value").text("" + flux);
+            }
+            
+            // Get 1D pixel data for row/column around cursor
+            var row_index = e.offsetY,
+                col_index = e.offsetX;
+            
+            var _row_data = image_context.getImageData(col_index-svg_width/2, row_index, svg_width, 1).data,
+                _col_data = image_context.getImageData(col_index, row_index-svg_width/2, 1, svg_width).data;
+            
+            var row_data = new Array();
+            for (var i=0; i<svg_width; i++) {
+                row_data.push(_row_data[i*4]);
+            }
+            
+            var col_data = new Array();
+            for (var i=0; i<svg_width; i++) {
+                col_data.push(_col_data[i*4]);
+            }
+            
+            rowPlot_y_scaler.domain([Math.min.apply(Math, row_data), Math.max.apply(Math, row_data)]).clamp(true);
+            colPlot_y_scaler.domain([Math.min.apply(Math, col_data), Math.max.apply(Math, col_data)]).clamp(true);
+            
+            var row_line = d3.svg.line()
+                .x(function(d,i) { return rowPlot_x_scaler(i); })
+                .y(function(d) { return rowPlot_y_scaler(d); })
+                .interpolate('linear');
+            
+            var col_line = d3.svg.line()
+                .x(function(d,i) { return colPlot_x_scaler(i); })
+                .y(function(d) { return colPlot_y_scaler(d); })
+                .interpolate('linear');
+            
+            // --------------------------------------------------------
+            var row_lines = row_svg.selectAll('.row-lines')
+                                .data(row_data)
+                                .remove();
+    
+            row_lines.enter()
+                    .append('path')
+                    .attr('d', row_line(row_data))
+                    .attr('class', 'row-lines');
+    
+            row_lines.exit()
+                    .remove();
+            
+            var col_lines = col_svg.selectAll('.col-lines')
+                                .data(col_data)
+                                .remove();
+    
+            col_lines.enter()
+                    .append('path')
+                    .attr('d', col_line(col_data))
+                    .attr('class', 'col-lines');
+    
+            col_lines.exit()
+                    .remove();
+            // --------------------------------------------------------
+                
+        });
+        
+        $('#crosshairs').change(function () {
+            if (!$(this).attr("checked")) {
+                overlay_context.clearRect(0,0,
+                                          $("#imageOverlay").attr("width"),
+                                          $("#imageOverlay").attr("height"));
+            }
+        });
+        
+    </script>
+
+{% endblock %}

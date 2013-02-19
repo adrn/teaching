@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block body_title %}
+    {{ super() }}
+    
+    {% endblock %}
+{% block body %}
+    
+    <h2>Photometry</h2>
+    <hr width="400px" color="#aaa" size="1px" />
+    <p class="text">
+        <h3 class="inline">Select your lab TA:</h3>
+        <div class="inline">
+            <select id="ta_name" name="ta_name">
+            <option value="">--</option><br/>
+            {% for ta_name in ta_list %}
+                <option value="{{ ta_name }}">{{ ta_name }}</option><br/>
+            {% endfor %}
+            </select>
+        </div>
+        
+        <br/><br/>
+        <div id="image_list"></div>
+    </p>
+    
+    <script type="text/javascript">
+        
+        $("#ta_name").change(function () {
+            $.ajax({
+                type:"POST",
+                url: "/ajax/image_list",
+                data:"name="+$(this).val(),
+                success: function(html) {
+                    if (html["image_names"].length == 0) {
+                        $("#image_list").text("No images found!");
+                        return;
+                    } else {
+                        $("#image_list").html("<h3>Image list:</h3>");
+                    }
+                    
+                    var p = d3.select("#image_list").selectAll("a")
+                        .data(html["image_names"]);
+                    
+                    p.enter().append("a")
+                        .text(function (d) { return d; })
+                        .style("display", "block")
+                        .style("padding", "3px")
+                        .style("padding-left", "10px")
+                        .attr("href", function (d) {
+                            return "fitsimage/"
+                                + encodeURIComponent($("#ta_name").val())
+                                + "/" + d;
+                        });
+                    
+                    p.exit().remove();
+                },
+                error: function(){
+                    alert('error!');
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
