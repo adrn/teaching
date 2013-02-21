@@ -228,3 +228,11 @@ svg.flux-plot {
 #aperture-flux-value {
     color: #666;
 }
+
+#filter_select {
+    font-size: 14pt;
+}
+
+#filter_select font {
+    margin-left: 10px;
+}

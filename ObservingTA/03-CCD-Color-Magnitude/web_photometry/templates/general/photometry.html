@@ -14,7 +14,6 @@
         <h3 class="inline">Select your lab TA:</h3>
         <div class="inline">
             <select id="ta_name" name="ta_name">
-            <option value="">--</option><br/>
             {% for ta_name in ta_list %}
                 <option value="{{ ta_name }}">{{ ta_name }}</option><br/>
             {% endfor %}
@@ -27,11 +26,12 @@
     
     <script type="text/javascript">
         
-        $("#ta_name").change(function () {
+        /*  Function for loading the list of images for a specified TA */
+        function load_image_list() {
             $.ajax({
                 type:"POST",
                 url: "/ajax/image_list",
-                data:"name="+$(this).val(),
+                data:"name="+$("#ta_name").val(),
                 success: function(html) {
                     if (html["image_names"].length == 0) {
                         $("#image_list").text("No images found!");
@@ -57,10 +57,16 @@
                     p.exit().remove();
                 },
                 error: function(){
-                    alert('error!');
+                    // Image list not found for given name
                 }
             });
-        });
+        }
+        
+        /*  If the selected TA is changed, load a new image list */
+        $("#ta_name").change(load_image_list);
+        
+        /*  When the document loads load the image list */
+        $(document).ready(load_image_list);
     </script>
 
 {% endblock %}
