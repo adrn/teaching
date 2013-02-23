@@ -1,10 +1,11 @@
 """ This server is meant to be run within a virtual environment:
         
+        % virtualenv venv
         % . venv/bin/activate
         % python serve.py
         
     Packages installed into this virtual environment:
-        pip install numpy flask flask-openid pyfits PIL
+        pip install numpy flask flask-openid pyfits PIL simplejson
 
 """
 
