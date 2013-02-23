@@ -57,10 +57,26 @@ def image_list():
     return jsonify(dict(image_names=ims))
 
 @mod.route('/fitsimage/<ta>/<image_name>')
-def image_viewer(ta, image_name):        
+def image_viewer(ta, image_name):
     return render_template('general/tool.html', 
                             ta=ta, 
                             image_name=image_name)
+
+@mod.route('/wcs/<ta>/<image_name>')
+def wcs(ta, image_name):
+    
+    url = "http://deimos.astro.columbia.edu/photometry/images/png/"
+    print os.path.join(url, ta, image_name)
+    return
+    
+    client = AstrometryClient("ebupzewhusazsmqe")
+    
+    wcs_url = "http://nova.astrometry.net/wcs_file/"
+    #response = client.url_upload(url)
+    image_id = client.submission_images(32430)[0]
+    wcs = os.path.join(wcs_url, image_id)
+    
+    return 
     
 # ----------------------------------------------------------------------------
 #   Image utilities
@@ -114,7 +130,7 @@ def image_serve(ta, image_name):
     
     filter = request.args.get("filter", "Ri")
     scale_function = request.args.get("scale_function", "linear")
-    midpoint = request.args.get("midpoint", None)
+    midpoint = request.args.get("midpoint", 1./30)
     clip = request.args.get("clip", 0)
     downsample = request.args.get("downsample", None)
     
@@ -126,8 +142,8 @@ def image_serve(ta, image_name):
     hdulist = fits.open(fits_image_path)
     raw_image_data = hdulist[0].data.astype(float)
     
-    min = request.args.get("min", raw_image_data.min())
-    max = request.args.get("max", raw_image_data.max())
+    min = float(request.args.get("min", raw_image_data.min()))
+    max = float(request.args.get("max", raw_image_data.max()))
     
     if downsample is not None:
         raw_image_data = resample(raw_image_data, float(downsample))
@@ -142,7 +158,7 @@ def image_serve(ta, image_name):
     if scale_function == "linear":
         pass
     elif scale_function == "arcsinh":
-        image_data = arcsinh_scale(image_data, midpoint=midpoint)
+        image_data = arcsinh_scale(image_data, midpoint=float(midpoint))
     else:
         flash("BROKEN")
         return None

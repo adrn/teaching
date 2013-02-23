@@ -21,10 +21,11 @@ app.config.from_object("wwwconfig")
 #def not_found(error):
 #    return render_template('404.html'), 404
 
-from web_photometry.views import general, photometry, measurements
+from web_photometry.views import general, photometry, measurements, test
 app.register_blueprint(general.mod)
 app.register_blueprint(photometry.mod)
 app.register_blueprint(measurements.mod)
+app.register_blueprint(test.mod)
 
 # The code below is for connecting to the database containing measurements from
 #   the students.
