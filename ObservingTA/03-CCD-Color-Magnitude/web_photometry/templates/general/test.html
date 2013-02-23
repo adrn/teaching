@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block body_title %}
+    {{ super() }}
+    
+    {% endblock %}
+{% block body %}
+    
+    <h2>Test</h2>
+    <hr width="400px" color="#aaa" size="1px" />
+    <p class="text">
+    </p>
+    
+    <script type="text/javascript">
+        
+        function test_shit() {
+            var jsondata = {"url" : "http://deimos.astro.columbia.edu/scratch/orion_test.png"};
+            console.log(JSON.stringify(jsondata));
+            $.ajax({
+                type: "POST",
+                url: "http://nova.astrometry.net/api/url_upload",
+                dataType: "jsonp",
+                crossDomain: true,
+                contentType: "application/json",
+                data: JSON.stringify(jsondata),
+                headers: {"Content-disposition" : 'form-data; name="request-json"'},
+                success: function(resp) {
+                    console.log("SUXXESS");
+                    console.log(resp);
+                },
+                error: function(err){
+                    console.log("Error");
+                    console.log(err);
+                }
+            });
+        }
+        
+        $(document).ready(test_shit);
+    </script>
+
+{% endblock %}
