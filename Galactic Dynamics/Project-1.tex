@@ -1,0 +1,68 @@
+\documentclass[12pt,twoside]{article}
+
+% packages
+\usepackage{amssymb,amsmath,amsbsy}
+\usepackage[includeheadfoot, top=1in, bottom=1in, hmargin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{verbatim}
+\usepackage{url}
+
+% commands
+\newcommand{\given}{\,|\,}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\msun}{\mathrm{M}_\odot}
+\newcommand{\projectname}[1]{\begin{center} {\huge {#1}} \end{center}}
+
+% environments
+\newcommand{\problemname}{Problem}
+\newcounter{problem}
+\newenvironment{problem}{\paragraph{\problemname~\theproblem:}\refstepcounter{problem}}{}
+\newenvironment{problem0}{\paragraph{\problemname~0:}}{}
+ 
+\pagestyle{fancy}
+
+\lhead{Project 1}
+\chead{}
+\rhead{Adrian Price-Whelan}
+\lfoot{Galactic Dynamics}
+\cfoot{\thepage}
+\rfoot{Fall 2014}
+
+\begin{document}
+
+\projectname{The Milky Way}
+
+\begin{problem0}
+To get started, 
+	\begin{enumerate}
+		\item install \texttt{Python} using the \texttt{Anaconda}\footnote{\url{https://store.continuum.io/cshop/anaconda}} distribution;
+		\item update \texttt{Conda} and other packages by running:
+			\begin{verbatim}
+    % conda update conda
+    % conda update numpy scipy astropy ipython
+			\end{verbatim}
+		\item verify that your installation worked by starting \texttt{IPython} and importing these packages:
+			\begin{verbatim}
+    % ipython
+    In [1]: import numpy
+    In [2]: import scipy.optimize
+    In [3]: import astropy.coordinates
+			\end{verbatim}
+			you should not see any errors;
+		\item download the combined \texttt{SEGUE} +  \texttt{APOGEE} K-giant data.\footnote{\url{TODO: link to data}}
+		
+	\end{enumerate}
+\end{problem0}
+
+\begin{problem}
+derp
+\end{problem}
+
+\end{document}
+
+%\begin{figure*}[!h]
+%\begin{center}
+%\includegraphics[width=\textwidth]{PATH}
+%\caption{ CAPTION }\label{fig:FIGNAME}
+%\end{center}
+%\end{figure*}
